@@ -11,7 +11,7 @@ LICENSE="MIT"
 SLOT="0"
 
 KEYWORDS="amd64"
-IUSE="xinerama"
+IUSE="xinerama gruv"
 
 BDEPEND=">=x11-misc/rofi-1.7.5
 >=media-gfx/feh-3.10.2
@@ -29,6 +29,11 @@ src_install() {
 		# Turn off xinerama
 		sed -i 's/^\(XINERAMALIBS\|XINERAMAFLAGS\)/#\1/' config.mk
 	fi
+	if use gruv ; then
+		# Set the theme to gruvbox
+		elog "Setting theme to gruvbox"
+		sed -i 's|#include "themes/onedark.h"|#include "themes/gruvchad.h"|' config.def.h
+	fi
 	emake DESTDIR="${D}" install
 	cd ..
 	cp -r "${S}/scripts" "${ED}/etc/chadwm/" || die "Failed to copy scripts."
@@ -40,6 +45,10 @@ pkg_postinst() {
 	elog "Chadwm is installed, but you still need the scripts to run it easily."
 	elog "The chadwm supplements have been installed to /etc/chadwm."
 	elog "To use them, run cp -r /etc/chadwm ~/.config/chadwm"
+	if use gruv ; then
+		elog "Since you set the gruvbox theme, make sure you update the themes in the supplements."
+		elog "Check out the chadwm repository for more details."
+	fi
 }
 
 pkg_postrm() {
