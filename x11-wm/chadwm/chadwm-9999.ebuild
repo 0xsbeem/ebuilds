@@ -1,8 +1,7 @@
 EAPI=8
 inherit git-r3
 
-EGIT_REPO_URI="https://github.com/siduck/chadwm.git"
-
+EGIT_REPO_URI="https://github.com/0xsbeem/chadwm.git"
 
 DESCRIPTION="dwm, but pretty out of the box."
 
