@@ -10,11 +10,9 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-# src_unpack() {
-# 	fy-sig_src_unpack
-#
-# 	mv "${WORKDIR}/"* "${S}" || die
-# }
+src_unpack() {
+	mv "${WORKDIR}/"* "${S}" || die
+}
 
 src_install() {
 	insinto /opt/
