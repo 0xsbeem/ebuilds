@@ -120,15 +120,15 @@ src_prepare() {
 }
 
 src_compile() {
-	ezig build -Drelease-safe -Ddata_version=0.10.0 --verbose || die
+	ezig build -Drelease-safe -Ddata_version=0.13.0 --verbose || die
 }
 
 src_test() {
-	ezig build test -Drelease-safe -Ddata_version=0.10.0 --verbose || die
+	ezig build test -Drelease-safe -Ddata_version=0.13.0 --verbose || die
 }
 
 src_install() {
-	DESTDIR="${ED}" ezig build install --prefix /usr -Drelease-safe -Ddata_version=0.10.0 --verbose || die
+	DESTDIR="${ED}" ezig build install --prefix /usr -Drelease-safe -Ddata_version=0.13.0 --verbose || die
 	dodoc README.md
 }
 
