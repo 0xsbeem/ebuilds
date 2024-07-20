@@ -11,7 +11,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 src_unpack() {
-	unpack zls-x64_64-linux.tar.xz
+	unpack zls-x86_64-linux.tar.xz
 	mv "${WORKDIR}/"* "${S}" || die
 }
 
