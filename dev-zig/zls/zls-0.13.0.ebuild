@@ -34,7 +34,7 @@ QA_FLAGS_IGNORED="usr/bin/zls"
 # Many thanks to Florian Schmaus (Flowdalic)!
 # Adapted from https://github.com/gentoo/gentoo/pull/28986
 # Set the EZIG environment variable.
-zig-set_EZIG() {
+# zig-set_EZIG() {
 	# [[ -n ${EZIG} ]] && return
 	#
 	# if [[ -n ${EZIG_OVERWRITE} ]]; then
@@ -96,21 +96,21 @@ zig-set_EZIG() {
 	# export EZIG_VER="${ver}"
 	# export EZIG="0.13.0"
 	# export EZIG_VER="0.13.0"
-}
+# }
 
 # Invoke zig with the optionally provided arguments.
-ezig() {
-	# zig-set_EZIG
-
-	# Unfortunately, we cannot add more args here, since syntax is different
-	# for every subcommands. Yes, even target/cpu :( f.i. :
-	# -target/-mcpu for zig build-exe vs -Dtarget/-Dcpu for zig build-
-	# -OReleaseSafe for zig build-exe vs -DReleaseSafe for zig build
-	# (or even none, if hardcoded by upstream so choice is -Drelease=true/false)
-	# Ofc we can patch this, but still...
-
-	edo "zig" "${@}"
-}
+# ezig() {
+# 	# zig-set_EZIG
+#
+# 	# Unfortunately, we cannot add more args here, since syntax is different
+# 	# for every subcommands. Yes, even target/cpu :( f.i. :
+# 	# -target/-mcpu for zig build-exe vs -Dtarget/-Dcpu for zig build-
+# 	# -OReleaseSafe for zig build-exe vs -DReleaseSafe for zig build
+# 	# (or even none, if hardcoded by upstream so choice is -Drelease=true/false)
+# 	# Ofc we can patch this, but still...
+#
+# 	edo "zig" "${@}"
+# }
 
 src_prepare() {
 	rm -r src/known-folders
@@ -122,11 +122,11 @@ src_prepare() {
 }
 
 src_compile() {
-	ezig build -Drelease-safe -Ddata_version=0.13.0 --verbose || die
+	zig build -Drelease-safe -Ddata_version=0.13.0 --verbose || die
 }
 
 src_test() {
-	ezig build test -Drelease-safe -Ddata_version=0.13.0 --verbose || die
+	zig build test -Drelease-safe -Ddata_version=0.13.0 --verbose || die
 }
 
 src_install() {
