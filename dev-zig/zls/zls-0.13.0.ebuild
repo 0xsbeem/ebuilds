@@ -23,8 +23,8 @@ KEYWORDS="~amd64"
 EZIG_MIN="0.13.0"
 EZIG_MAX_EXCLUSIVE="0.13.0"
 
-DEPEND="|| ( dev-lang/zig:${EZIG_MIN} dev-lang/zig-bin:${EZIG_MIN} )"
-RDEPEND="${DEPEND}"
+# DEPEND="|| ( dev-lang/zig:${EZIG_MIN} dev-lang/zig-bin:${EZIG_MIN} )"
+# RDEPEND="${DEPEND}"
 
 # see https://github.com/ziglang/zig/issues/3382
 # For now, Zig Build System doesn't support CFLAGS/LDFLAGS/etc.
