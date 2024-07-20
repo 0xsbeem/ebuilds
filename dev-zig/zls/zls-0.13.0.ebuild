@@ -95,6 +95,7 @@ zig-set_EZIG() {
 	# export EZIG="${selected}"
 	# export EZIG_VER="${ver}"
 	export EZIG="0.13.0"
+	export EZIG_VER="0.13.0"
 }
 
 # Invoke zig with the optionally provided arguments.
