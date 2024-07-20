@@ -35,65 +35,66 @@ QA_FLAGS_IGNORED="usr/bin/zls"
 # Adapted from https://github.com/gentoo/gentoo/pull/28986
 # Set the EZIG environment variable.
 zig-set_EZIG() {
-	[[ -n ${EZIG} ]] && return
-
-	if [[ -n ${EZIG_OVERWRITE} ]]; then
-		export EZIG="${EZIG_OVERWRITE}"
-		return
-	fi
-
-	local candidates candidate selected selected_ver
-
-	candidates=$(compgen -c zig-)
-
-	for candidate in ${candidates}; do
-		if [[ ! ${candidate} =~ zig(-bin)?-([.0-9]+) ]]; then
-			continue
-		fi
-
-		local ver
-		if (( ${#BASH_REMATCH[@]} == 3 )); then
-			ver="${BASH_REMATCH[2]}"
-		else
-			ver="${BASH_REMATCH[1]}"
-		fi
-
-		if [[ -n ${EZIG_EXACT_VER} ]]; then
-			ver_test "${ver}" -ne "${EZIG_EXACT_VER}" && continue
-
-			selected="${candidate}"
-			selected_ver="${ver}"
-			break
-		fi
-
-		if [[ -n ${EZIG_MIN} ]] \
-			   && ver_test "${ver}" -lt "${EZIG_MIN}"; then
-			# Candidate does not satisfy EZIG_MIN condition.
-			continue
-		fi
-
-		if [[ -n ${EZIG_MAX_EXCLUSIVE} ]] \
-			   && ver_test "${ver}" -ge "${EZIG_MAX_EXCLUSIVE}"; then
-			# Candidate does not satisfy EZIG_MAX_EXCLUSIVE condition.
-			continue
-		fi
-
-		if [[ -n ${selected_ver} ]] \
-			   && ver_test "${selected_ver}" -gt "${ver}"; then
-			# Candidate is older than the currently selected candidate.
-			continue
-		fi
-
-		selected="${candidate}"
-		selected_ver="${ver}"
-	done
-
-	if [[ -z ${selected} ]]; then
-		die "Could not find (suitable) zig installation in PATH"
-	fi
-
-	export EZIG="${selected}"
-	export EZIG_VER="${ver}"
+	# [[ -n ${EZIG} ]] && return
+	#
+	# if [[ -n ${EZIG_OVERWRITE} ]]; then
+	# 	export EZIG="${EZIG_OVERWRITE}"
+	# 	return
+	# fi
+	#
+	# local candidates candidate selected selected_ver
+	#
+	# candidates=$(compgen -c zig-)
+	#
+	# for candidate in ${candidates}; do
+	# 	if [[ ! ${candidate} =~ zig(-bin)?-([.0-9]+) ]]; then
+	# 		continue
+	# 	fi
+	#
+	# 	local ver
+	# 	if (( ${#BASH_REMATCH[@]} == 3 )); then
+	# 		ver="${BASH_REMATCH[2]}"
+	# 	else
+	# 		ver="${BASH_REMATCH[1]}"
+	# 	fi
+	#
+	# 	if [[ -n ${EZIG_EXACT_VER} ]]; then
+	# 		ver_test "${ver}" -ne "${EZIG_EXACT_VER}" && continue
+	#
+	# 		selected="${candidate}"
+	# 		selected_ver="${ver}"
+	# 		break
+	# 	fi
+	#
+	# 	if [[ -n ${EZIG_MIN} ]] \
+	# 		   && ver_test "${ver}" -lt "${EZIG_MIN}"; then
+	# 		# Candidate does not satisfy EZIG_MIN condition.
+	# 		continue
+	# 	fi
+	#
+	# 	if [[ -n ${EZIG_MAX_EXCLUSIVE} ]] \
+	# 		   && ver_test "${ver}" -ge "${EZIG_MAX_EXCLUSIVE}"; then
+	# 		# Candidate does not satisfy EZIG_MAX_EXCLUSIVE condition.
+	# 		continue
+	# 	fi
+	#
+	# 	if [[ -n ${selected_ver} ]] \
+	# 		   && ver_test "${selected_ver}" -gt "${ver}"; then
+	# 		# Candidate is older than the currently selected candidate.
+	# 		continue
+	# 	fi
+	#
+	# 	selected="${candidate}"
+	# 	selected_ver="${ver}"
+	# done
+	#
+	# if [[ -z ${selected} ]]; then
+	# 	die "Could not find (suitable) zig installation in PATH"
+	# fi
+	#
+	# export EZIG="${selected}"
+	# export EZIG_VER="${ver}"
+	export EZIG="0.13.0"
 }
 
 # Invoke zig with the optionally provided arguments.
@@ -111,9 +112,9 @@ ezig() {
 }
 
 src_prepare() {
-	rm -r src/known-folders || die
+	rm -r src/known-folders
 	mv "../known-folders-${KNOWN_FOLDERS_COMMIT}" src/known-folders || die
-	rm -r src/tracy || die
+	rm -r src/tracy
 	mv "../tracy-${TRACY_COMMIT}" src/zinput || die
 
 	default
