@@ -94,13 +94,13 @@ zig-set_EZIG() {
 	#
 	# export EZIG="${selected}"
 	# export EZIG_VER="${ver}"
-	export EZIG="0.13.0"
-	export EZIG_VER="0.13.0"
+	# export EZIG="0.13.0"
+	# export EZIG_VER="0.13.0"
 }
 
 # Invoke zig with the optionally provided arguments.
 ezig() {
-	zig-set_EZIG
+	# zig-set_EZIG
 
 	# Unfortunately, we cannot add more args here, since syntax is different
 	# for every subcommands. Yes, even target/cpu :( f.i. :
@@ -109,7 +109,7 @@ ezig() {
 	# (or even none, if hardcoded by upstream so choice is -Drelease=true/false)
 	# Ofc we can patch this, but still...
 
-	edo "${EZIG}" "${@}"
+	edo "zig" "${@}"
 }
 
 src_prepare() {
