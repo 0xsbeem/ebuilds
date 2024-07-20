@@ -12,11 +12,10 @@ KEYWORDS="~amd64"
 
 src_unpack() {
 	unpack zls-x86_64-linux.tar.xz
+	mkdir ${S}
 }
 
 src_install() {
-	# insinto /opt/
-	doins -r "${WORKDIR}"
-	# fperms 0755 "/opt/${P}/zls"
-	# dosym -r "/opt/${P}/zls" "/usr/bin/zls-bin-${PV}"
+	# mv ${S}/zls /usr/local/bin/
+	newbin ${WORKDIR}/zls zls
 }
